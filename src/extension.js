@@ -1,68 +1,68 @@
 const vscode = require('vscode');
-const PhpUnitCommand = require('./phpunit-command');
-const RemotePhpUnitCommand = require('./remote-phpunit-command.js');
-const DockerPhpUnitCommand = require('./docker-phpunit-command.js');
+const DuskCommand = require('./dusk-command');
+const RemoteDuskCommand = require('./remote-dusk-command.js');
+const DockerDuskCommand = require('./docker-dusk-command.js');
 
 var globalCommand;
 
 module.exports.activate = function (context) {
     let disposables = [];
 
-    disposables.push(vscode.commands.registerCommand('better-phpunit.run', async () => {
+    disposables.push(vscode.commands.registerCommand('better-dusk.run', async () => {
         let command;
 
-        if (vscode.workspace.getConfiguration("better-phpunit").get("docker.enable")) {
-            command = new DockerPhpUnitCommand;
-        } else if (vscode.workspace.getConfiguration("better-phpunit").get("ssh.enable")) {
-            command = new RemotePhpUnitCommand;
+        if (vscode.workspace.getConfiguration("better-dusk").get("docker.enable")) {
+            command = new DockerDuskCommand;
+        } else if (vscode.workspace.getConfiguration("better-dusk").get("ssh.enable")) {
+            command = new RemoteDuskCommand;
         } else {
-            command = new PhpUnitCommand;
+            command = new DuskCommand;
         }
 
         await runCommand(command);
     }));
 
-    disposables.push(vscode.commands.registerCommand('better-phpunit.run-file', async () => {
+    disposables.push(vscode.commands.registerCommand('better-dusk.run-file', async () => {
         let command;
 
-        if (vscode.workspace.getConfiguration("better-phpunit").get("docker.enable")) {
-            command = new DockerPhpUnitCommand({ runFile: true });
-        } else if (vscode.workspace.getConfiguration("better-phpunit").get("ssh.enable")) {
-            command = new RemotePhpUnitCommand({ runFile: true });
+        if (vscode.workspace.getConfiguration("better-dusk").get("docker.enable")) {
+            command = new DockerDuskCommand({ runFile: true });
+        } else if (vscode.workspace.getConfiguration("better-dusk").get("ssh.enable")) {
+            command = new RemoteDuskCommand({ runFile: true });
         } else {
-            command = new PhpUnitCommand({ runFile: true });
+            command = new DuskCommand({ runFile: true });
         }
 
         await runCommand(command);
     }));
 
-    disposables.push(vscode.commands.registerCommand('better-phpunit.run-suite', async () => {
+    disposables.push(vscode.commands.registerCommand('better-dusk.run-suite', async () => {
         let command;
 
-        if (vscode.workspace.getConfiguration("better-phpunit").get("docker.enable")) {
-            command = new DockerPhpUnitCommand({ runFullSuite: true });
-        } else if (vscode.workspace.getConfiguration("better-phpunit").get("ssh.enable")) {
-            command = new RemotePhpUnitCommand({ runFullSuite: true });
+        if (vscode.workspace.getConfiguration("better-dusk").get("docker.enable")) {
+            command = new DockerDuskCommand({ runFullSuite: true });
+        } else if (vscode.workspace.getConfiguration("better-dusk").get("ssh.enable")) {
+            command = new RemoteDuskCommand({ runFullSuite: true });
         } else {
-            command = new PhpUnitCommand({ runFullSuite: true });
+            command = new DuskCommand({ runFullSuite: true });
         }
 
         await runCommand(command);
     }));
 
-    disposables.push(vscode.commands.registerCommand('better-phpunit.run-previous', async () => {
+    disposables.push(vscode.commands.registerCommand('better-dusk.run-previous', async () => {
         await runPreviousCommand();
     }));
 
-    disposables.push(vscode.tasks.registerTaskProvider('phpunit', {
+    disposables.push(vscode.tasks.registerTaskProvider('dusk', {
         provideTasks: () => {
             return [new vscode.Task(
-                { type: "phpunit", task: "run" },
+                { type: "dusk", task: "run" },
                 2,
                 "run",
-                'phpunit',
+                'dusk',
                 new vscode.ShellExecution(globalCommand.output),
-                '$phpunit'
+                '$dusk'
             )];
         }
     }));
@@ -74,15 +74,15 @@ async function runCommand(command) {
     setGlobalCommandInstance(command);
 
     vscode.window.activeTextEditor
-        || vscode.window.showErrorMessage('Better PHPUnit: open a file to run this command');
+        || vscode.window.showErrorMessage('Better Dusk: open a file to run this command');
 
     await vscode.commands.executeCommand('workbench.action.terminal.clear');
-    await vscode.commands.executeCommand('workbench.action.tasks.runTask', 'phpunit: run');
+    await vscode.commands.executeCommand('workbench.action.tasks.runTask', 'dusk: run');
 }
 
 async function runPreviousCommand() {
     await vscode.commands.executeCommand('workbench.action.terminal.clear');
-    await vscode.commands.executeCommand('workbench.action.tasks.runTask', 'phpunit: run');
+    await vscode.commands.executeCommand('workbench.action.tasks.runTask', 'dusk: run');
 }
 
 function setGlobalCommandInstance(commandInstance) {

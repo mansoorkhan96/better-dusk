@@ -1,6 +1,6 @@
 {
     "name": "calebporzio/project-stub",
-    "description": "Test environment for Better PHPUnit VS Code extension",
+    "description": "Test environment for Better Dusk VS Code extension",
     "authors": [
         {
             "name": "Caleb Porzio",

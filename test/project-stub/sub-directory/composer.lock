@@ -801,7 +801,7 @@
                     "role": "lead"
                 }
             ],
-            "description": "Mock Object library for PHPUnit",
+            "description": "Mock Object library for Dusk",
             "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
             "keywords": [
                 "mock",

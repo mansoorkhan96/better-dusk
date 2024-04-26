@@ -1,98 +1,92 @@
 {
-    "name": "better-phpunit",
-    "displayName": "Better PHPUnit",
-    "description": "A better PHPUnit test runner",
-    "version": "1.6.2",
-    "publisher": "calebporzio",
+    "name": "better-dusk",
+    "displayName": "Better Dusk",
+    "description": "A better Dusk test runner",
+    "version": "0.0.1",
+    "publisher": "mansoorkhan96",
     "engines": {
         "vscode": "^1.74.0"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/calebporzio/better-phpunit.git"
+        "url": "https://github.com/mansoorkhan96/better-dusk"
     },
     "icon": "icon.png",
     "categories": [
+        "Testing",
+        "PHP",
         "Other"
     ],
     "activationEvents": [
-        "onCommand:better-phpunit.run",
-        "onCommand:better-phpunit.run-file",
-        "onCommand:better-phpunit.run-suite"
+        "onCommand:better-dusk.run",
+        "onCommand:better-dusk.run-file",
+        "onCommand:better-dusk.run-suite"
     ],
     "main": "./src/extension",
     "contributes": {
         "commands": [
             {
-                "command": "better-phpunit.run",
-                "title": "Better PHPUnit: run"
+                "command": "better-dusk.run",
+                "title": "Better Dusk: run"
             },
             {
-                "command": "better-phpunit.run-file",
-                "title": "Better PHPUnit: run file"
+                "command": "better-dusk.run-file",
+                "title": "Better Dusk: run file"
             },
             {
-                "command": "better-phpunit.run-suite",
-                "title": "Better PHPUnit: run suite"
+                "command": "better-dusk.run-suite",
+                "title": "Better Dusk: run suite"
             },
             {
-                "command": "better-phpunit.run-previous",
-                "title": "Better PHPUnit: run previous"
+                "command": "better-dusk.run-previous",
+                "title": "Better Dusk: run previous"
             }
         ],
         "keybindings": [
             {
                 "key": "cmd+k cmd+r",
-                "command": "better-phpunit.run",
+                "command": "better-dusk.run",
                 "when": "editorLangId == php"
             },
             {
                 "key": "cmd+k cmd+f",
-                "command": "better-phpunit.run-file",
+                "command": "better-dusk.run-file",
                 "when": "editorLangId == php"
             },
             {
                 "key": "cmd+k cmd+p",
-                "command": "better-phpunit.run-previous",
+                "command": "better-dusk.run-previous",
                 "when": "editorLangId == php"
             }
         ],
         "configuration": {
-            "title": "Better PHPUnit configuration",
+            "title": "Better Dusk configuration",
             "properties": {
-                "better-phpunit.commandSuffix": {
+                "better-dusk.commandSuffix": {
                     "type": [
                         "string",
                         "null"
                     ],
                     "default": null,
-                    "description": "This string will be appended to the phpunit command, it's a great place to add flags like '--stop-on-failure'"
+                    "description": "This string will be appended to the dusk command, it's a great place to add flags like '--stop-on-failure'"
                 },
-                "better-phpunit.phpunitBinary": {
+                "better-dusk.binary": {
                     "type": [
                         "string",
                         "null"
                     ],
                     "default": null,
-                    "description": "A custom phpunit binary. Ex: 'phpunit', '/usr/local/bin/phpunit'"
+                    "description": "A custom dusk binary. Ex: 'dusk', 'php artisan dusk'"
                 },
-                "better-phpunit.pestBinary": {
+                "better-dusk.xmlConfigFilepath": {
                     "type": [
                         "string",
                         "null"
                     ],
                     "default": null,
-                    "description": "A custom Pest binary. Ex: 'pest', '/usr/local/bin/pest'"
+                    "description": "Absolute path for the Dusk XML configuration file"
                 },
-                "better-phpunit.xmlConfigFilepath": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "default": null,
-                    "description": "Absolute path for the PHPUnit XML configuration file"
-                },
-                "better-phpunit.suiteSuffix": {
+                "better-dusk.suiteSuffix": {
                     "type": [
                         "string",
                         "null"
@@ -100,12 +94,12 @@
                     "default": null,
                     "description": "Specify options to appended only to the 'run suite' command, for example add options like '--testsuite unit' or '--coverage  --coverage-xml'"
                 },
-                "better-phpunit.ssh.enable": {
+                "better-dusk.ssh.enable": {
                     "type": "boolean",
                     "default": false,
                     "description": "Run tests over SSH"
                 },
-                "better-phpunit.ssh.user": {
+                "better-dusk.ssh.user": {
                     "type": [
                         "string",
                         "null"
@@ -113,7 +107,7 @@
                     "default": null,
                     "description": "The user to connect as when running test via SSH"
                 },
-                "better-phpunit.ssh.host": {
+                "better-dusk.ssh.host": {
                     "type": [
                         "string",
                         "null"
@@ -121,19 +115,19 @@
                     "default": null,
                     "description": "The hostname to use when running tests via SSH"
                 },
-                "better-phpunit.ssh.port": {
+                "better-dusk.ssh.port": {
                     "type": [
                         "integer"
                     ],
                     "default": 22,
-                    "description": "The port to use when running tests via SSH.  Deprecated, set better-phpunit.options to '-p[port]' on Linux/Mac, and '-P [port]' on Windows."
+                    "description": "The port to use when running tests via SSH.  Deprecated, set better-dusk.options to '-p[port]' on Linux/Mac, and '-P [port]' on Windows."
                 },
-                "better-phpunit.ssh.paths": {
+                "better-dusk.ssh.paths": {
                     "type": "object",
                     "default": {},
                     "description": "The SSH path map. Keys are local (host) paths and values are remote (guest) paths."
                 },
-                "better-phpunit.ssh.binary": {
+                "better-dusk.ssh.binary": {
                     "type": [
                         "string",
                         "null"
@@ -141,12 +135,12 @@
                     "default": null,
                     "description": "The path (and flags) to an SSH-compatible binary. If null it will use SSH on *nix and Putty on Windows."
                 },
-                "better-phpunit.ssh.disableAllOptions": {
+                "better-dusk.ssh.disableAllOptions": {
                     "type": "boolean",
                     "default": false,
                     "description": "Do not include any config options in SSH command."
                 },
-                "better-phpunit.ssh.options": {
+                "better-dusk.ssh.options": {
                     "type": [
                         "string",
                         "null"
@@ -154,12 +148,12 @@
                     "default": null,
                     "description": "Additional command line options to pass to ssh/putty/plink"
                 },
-                "better-phpunit.docker.enable": {
+                "better-dusk.docker.enable": {
                     "type": "boolean",
                     "default": false,
                     "description": "Run tests within a Docker container"
                 },
-                "better-phpunit.docker.command": {
+                "better-dusk.docker.command": {
                     "type": [
                         "string",
                         "null"
@@ -167,7 +161,7 @@
                     "default": null,
                     "description": "The Docker command to execute a container. If null, an error will be thrown during execution."
                 },
-                "better-phpunit.docker.paths": {
+                "better-dusk.docker.paths": {
                     "type": "object",
                     "default": {},
                     "description": "The docker path map. Keys are local (host) paths and values are remote (container) paths."
@@ -176,7 +170,7 @@
         },
         "problemMatchers": [
             {
-                "name": "phpunit",
+                "name": "dusk",
                 "owner": "php",
                 "fileLocation": "absolute",
                 "pattern": [
@@ -197,7 +191,7 @@
         ],
         "taskDefinitions": [
             {
-                "type": "phpunit",
+                "type": "dusk",
                 "required": [
                     "task"
                 ],

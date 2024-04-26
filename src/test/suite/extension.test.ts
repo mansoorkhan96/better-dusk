@@ -17,35 +17,33 @@ function timeout(seconds: any, callback: any) {
     });
 }
 
-suite("Better PHPUnit Test Suite", function () {
+suite("Better Dusk Test Suite", function () {
     beforeEach(async () => {
         // Reset the test/project-stub/.vscode/settings.json settings for each test.
         // This allows us to test config options in tests and not harm other tests.
-        await vscode.workspace.getConfiguration('better-phpunit').update('commandSuffix', null);
-        await vscode.workspace.getConfiguration('better-phpunit').update('phpunitBinary', null);
-        await vscode.workspace.getConfiguration('better-phpunit').update('pestBinary', null);
-        await vscode.workspace.getConfiguration("better-phpunit").update("ssh.enable", false);
-        await vscode.workspace.getConfiguration("better-phpunit").update("xmlConfigFilepath", null);
-        await vscode.workspace.getConfiguration("better-phpunit").update("suiteSuffix", null);
-        await vscode.workspace.getConfiguration("better-phpunit").update("docker.enable", false);
+        await vscode.workspace.getConfiguration('better-dusk').update('commandSuffix', null);
+        await vscode.workspace.getConfiguration('better-dusk').update('binary', null);
+        await vscode.workspace.getConfiguration("better-dusk").update("ssh.enable", false);
+        await vscode.workspace.getConfiguration("better-dusk").update("xmlConfigFilepath", null);
+        await vscode.workspace.getConfiguration("better-dusk").update("suiteSuffix", null);
+        await vscode.workspace.getConfiguration("better-dusk").update("docker.enable", false);
     });
 
     afterEach(async () => {
         // Reset the test/project-stub/.vscode/settings.json settings for each test.
         // This allows us to test config options in tests and not harm other tests.
-        await vscode.workspace.getConfiguration('better-phpunit').update('commandSuffix', null);
-        await vscode.workspace.getConfiguration('better-phpunit').update('phpunitBinary', null);
-        await vscode.workspace.getConfiguration('better-phpunit').update('pestBinary', null);
-        await vscode.workspace.getConfiguration("better-phpunit").update("ssh.enable", false);
-        await vscode.workspace.getConfiguration("better-phpunit").update("xmlConfigFilepath", null);
-        await vscode.workspace.getConfiguration("better-phpunit").update("suiteSuffix", null);
-        await vscode.workspace.getConfiguration("better-phpunit").update("docker.enable", false);
+        await vscode.workspace.getConfiguration('better-dusk').update('commandSuffix', null);
+        await vscode.workspace.getConfiguration('better-dusk').update('binary', null);
+        await vscode.workspace.getConfiguration("better-dusk").update("ssh.enable", false);
+        await vscode.workspace.getConfiguration("better-dusk").update("xmlConfigFilepath", null);
+        await vscode.workspace.getConfiguration("better-dusk").update("suiteSuffix", null);
+        await vscode.workspace.getConfiguration("better-dusk").update("docker.enable", false);
     });
 
     test("Run file outside of method", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.ok(extension.getGlobalCommandInstance().method === undefined);
@@ -55,7 +53,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Run file", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run-file');
+        await vscode.commands.executeCommand('better-dusk.run-file');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -68,7 +66,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Run from within first method", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -81,7 +79,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Run from within second method", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(12, 0, 12, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -94,7 +92,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Detect filename", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -107,7 +105,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Detect filename with a space", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'File With Spaces Test.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -120,7 +118,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Detect executable", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -133,7 +131,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Detect executable in sub-directory", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'sub-directory', 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -146,7 +144,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Detect configuration in sub-directory", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'sub-directory', 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -157,10 +155,10 @@ suite("Better PHPUnit Test Suite", function () {
     });
 
     test("Uses configuration found in path supplied in settings", async () => {
-        await vscode.workspace.getConfiguration('better-phpunit').update('xmlConfigFilepath', '/var/log/phpunit.xml');
+        await vscode.workspace.getConfiguration('better-dusk').update('xmlConfigFilepath', '/var/log/phpunit.xml');
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'sub-directory', 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document);
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -173,7 +171,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Check full command", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run');
+        await vscode.commands.executeCommand('better-dusk.run');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -186,7 +184,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Run previous", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'OtherTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(12, 0, 12, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run-previous');
+        await vscode.commands.executeCommand('better-dusk.run-previous');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -199,7 +197,7 @@ suite("Better PHPUnit Test Suite", function () {
     test("Run entire suite", async () => {
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run-suite')
+        await vscode.commands.executeCommand('better-dusk.run-suite')
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -210,10 +208,10 @@ suite("Better PHPUnit Test Suite", function () {
     });
 
     test("Run entire suite with specified options", async () => {
-        await vscode.workspace.getConfiguration('better-phpunit').update('suiteSuffix', '--testsuite unit --coverage');
+        await vscode.workspace.getConfiguration('better-dusk').update('suiteSuffix', '--testsuite unit --coverage');
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run-suite');
+        await vscode.commands.executeCommand('better-dusk.run-suite');
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -224,11 +222,11 @@ suite("Better PHPUnit Test Suite", function () {
     });
 
     test("Run with commandSuffix config", async () => {
-        await vscode.workspace.getConfiguration('better-phpunit').update('commandSuffix', '--foo=bar');
+        await vscode.workspace.getConfiguration('better-dusk').update('commandSuffix', '--foo=bar');
 
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run-suite')
+        await vscode.commands.executeCommand('better-dusk.run-suite')
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
@@ -238,12 +236,12 @@ suite("Better PHPUnit Test Suite", function () {
         });
     });
 
-    test("Run with phpunitBinary config", async () => {
-        await vscode.workspace.getConfiguration('better-phpunit').update('phpunitBinary', 'vendor/foo/bar');
+    test("Run with binary config", async () => {
+        await vscode.workspace.getConfiguration('better-dusk').update('binary', 'vendor/foo/bar');
 
         let document = await vscode.workspace.openTextDocument(path.join(vscode.workspace.rootPath, 'tests', 'SampleTest.php'));
         await vscode.window.showTextDocument(document, { selection: new vscode.Range(7, 0, 7, 0) });
-        await vscode.commands.executeCommand('better-phpunit.run-suite')
+        await vscode.commands.executeCommand('better-dusk.run-suite')
 
         await timeout(waitToAssertInSeconds, () => {
             assert.equal(
