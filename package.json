@@ -1,8 +1,8 @@
 {
     "name": "better-dusk",
     "displayName": "Better Dusk",
-    "description": "A better Dusk test runner",
-    "version": "0.0.1",
+    "description": "A better Laravel Dusk test runner",
+    "version": "0.0.2",
     "publisher": "mansoorkhan96",
     "engines": {
         "vscode": "^1.74.0"
@@ -14,7 +14,6 @@
     "icon": "icon.png",
     "categories": [
         "Testing",
-        "PHP",
         "Other"
     ],
     "activationEvents": [

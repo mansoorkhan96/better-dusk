@@ -1,6 +1,6 @@
 # Better Dusk
 
-Better Dusk is the most popular, cleanest, and fastest Dusk runner for VS Code.
+Better Dusk is the most popular, cleanest, and fastest Laravel Dusk test runner for VS Code.
 
 ![Demo GIF](demo.gif)
 
