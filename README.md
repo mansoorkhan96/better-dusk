@@ -31,15 +31,15 @@ Better Dusk is the most popular, cleanest, and fastest Laravel Dusk test runner 
 Keybindings:
 ```
 {
-    "key": "cmd+k cmd+r",
+    "key": "alt+r",
     "command": "better-dusk.run"
 },
 {
-    "key": "cmd+k cmd+f",
+    "key": "alt+f",
     "command": "better-dusk.run-file"
 },
 {
-    "key": "cmd+k cmd+p",
+    "key": "alt+p",
     "command": "better-dusk.run-previous"
 }
 ```
